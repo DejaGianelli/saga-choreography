@@ -57,7 +57,7 @@ public class CardAuthorizationService {
 
             watch.stop();
 
-            log.info("Card authorization finish for customer {} in {} ms",
+            log.info("Card authorization finished for customer {} in {} ms",
                     document, watch.getTime());
 
             return response.getAuthorized();

@@ -7,6 +7,8 @@ public enum KafkaHeader {
 
     EVENT_TYPE("EventType");
 
+    public static final String EVENT_TYPE_VALUE = "EventType";
+
     private final String key;
 
     KafkaHeader(String key) {

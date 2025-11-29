@@ -1,0 +1,16 @@
+{
+    "request": {
+        "urlPathTemplate": "/consumer/{document}/verification",
+        "method": "POST"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "verified": true
+        },
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "fixedDelayMilliseconds": 5000
+    }
+}

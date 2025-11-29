@@ -13,6 +13,12 @@ public enum EventType {
     ORDER_CREATED("OrderCreated"),
     ORDER_APPROVED("OrderApproved");
 
+    public static final String CREDIT_CARD_AUTHORIZED_VALUE = "CreditCardAuthorized";
+    public static final String TICKET_CREATED_VALUE = "TicketCreated";
+    public static final String CONSUMER_VERIFIED_VALUE = "ConsumerVerified";
+    public static final String ORDER_CREATED_VALUE = "OrderCreated";
+    public static final String ORDER_APPROVED_VALUE = "OrderApproved";
+
     private final String key;
 
     EventType(String key) {

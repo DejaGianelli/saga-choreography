@@ -27,7 +27,8 @@ public class OrderCreatedEventProcessService {
 
     public void process(DomainEvent<OrderCreatedEvent> event) {
 
-        boolean verified = consumerVerificationService.verify();
+        boolean verified = consumerVerificationService.tryVerify(
+                event.getPayload().getConsumerDocument());
 
         String key = event.getPayload().getOrderGuid().toString();
         String eventType = CONSUMER_VERIFIED.getKey();

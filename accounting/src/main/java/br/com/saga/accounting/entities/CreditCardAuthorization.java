@@ -52,14 +52,8 @@ public class CreditCardAuthorization {
         return this.customerVerified && this.ticketCreated;
     }
 
-    public void markTicketAsCreated() {
-        this.ticketCreated = true;
-    }
-
     @Getter
     public enum Status {
-        PENDING,
-        AUTHORIZATION_FAILED,
-        AUTHORIZED;
+        PENDING
     }
 }
