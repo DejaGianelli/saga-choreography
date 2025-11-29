@@ -1,0 +1,4 @@
+CREATE DATABASE accounting;
+CREATE DATABASE consumer;
+CREATE DATABASE kitchen;
+CREATE DATABASE "order";
