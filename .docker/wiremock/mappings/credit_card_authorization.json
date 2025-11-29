@@ -1,0 +1,16 @@
+{
+    "request": {
+        "urlPathTemplate": "/cards/{document}/authorization",
+        "method": "POST"
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "authorized": true
+        },
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "fixedDelayMilliseconds": 4000
+    }
+}

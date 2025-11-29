@@ -33,6 +33,7 @@ public class OrderCreatedEventProcessService {
         String key = event.getPayload().getOrderGuid().toString();
         TicketCreatedEvent payload = TicketCreatedEvent.builder()
                 .consumerGuid(event.getPayload().getConsumerGuid())
+                .consumerDocument(event.getPayload().getConsumerDocument())
                 .orderGuid(event.getPayload().getOrderGuid())
                 .ticketGuid(saved.getGuid())
                 .build();

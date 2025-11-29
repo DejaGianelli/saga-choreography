@@ -32,7 +32,8 @@ public class ConsumerVerifiedEventProcessService {
     public void process(DomainEvent<ConsumerVerifiedEvent> event) {
 
         creditCardAuthorizationRepository
-                .upsertConsumerVerified(event.getPayload().getOrderGuid());
+                .upsertConsumerVerified(event.getPayload().getOrderGuid(),
+                        event.getPayload().getConsumerDocument());
 
         log.info("Consumer {} verified: {}", event.getPayload().getConsumerGuid(),
                 event.getPayload().isVerified());
@@ -46,8 +47,8 @@ public class ConsumerVerifiedEventProcessService {
             return;
         }
 
-        boolean authorized = cardAuthorizationService.tryAuthorize(authorization
-                .getCustomerGuid());
+        boolean authorized = cardAuthorizationService.tryAuthorize(event
+                .getPayload().getConsumerDocument());
 
         if (authorized) {
             CreditCardAuthorizedEvent payload = CreditCardAuthorizedEvent

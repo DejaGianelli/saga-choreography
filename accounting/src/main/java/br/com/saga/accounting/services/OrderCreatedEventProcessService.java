@@ -23,7 +23,8 @@ public class OrderCreatedEventProcessService {
                 .findById(event.getPayload().getOrderGuid())
                 .orElse(new CreditCardAuthorization(
                         event.getPayload().getOrderGuid(),
-                        event.getPayload().getConsumerGuid()));
+                        event.getPayload().getConsumerGuid(),
+                        event.getPayload().getConsumerDocument()));
 
         creditCardAuthorizationRepository.save(authorization);
 

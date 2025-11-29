@@ -32,7 +32,8 @@ public class TicketCreatedEventProcessService {
     public void process(DomainEvent<TicketCreatedEvent> event) {
 
         creditCardAuthorizationRepository
-                .upsertTicketCreated(event.getPayload().getOrderGuid());
+                .upsertTicketCreated(event.getPayload().getOrderGuid(),
+                        event.getPayload().getConsumerDocument());
 
         log.info("Ticket {} created for order: {}", event.getPayload()
                 .getTicketGuid(), event.getPayload().getOrderGuid());
@@ -46,9 +47,8 @@ public class TicketCreatedEventProcessService {
             return;
         }
 
-        boolean authorized = cardAuthorizationService.tryAuthorize(authorization
-                .getCustomerGuid());
-
+        boolean authorized = cardAuthorizationService.tryAuthorize(
+                authorization.getDocument());
 
         if (authorized) {
             CreditCardAuthorizedEvent payload = CreditCardAuthorizedEvent

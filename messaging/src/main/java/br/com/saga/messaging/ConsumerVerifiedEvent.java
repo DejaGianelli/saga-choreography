@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 public class ConsumerVerifiedEvent {
     private UUID consumerGuid;
+    private String consumerDocument;
     private UUID orderGuid;
     private boolean verified;
 }

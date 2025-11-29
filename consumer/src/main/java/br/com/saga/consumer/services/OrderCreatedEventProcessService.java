@@ -34,6 +34,7 @@ public class OrderCreatedEventProcessService {
         ConsumerVerifiedEvent payload = ConsumerVerifiedEvent.builder()
                 .consumerGuid(event.getPayload().getConsumerGuid())
                 .orderGuid(event.getPayload().getOrderGuid())
+                .consumerDocument(event.getPayload().getConsumerDocument())
                 .verified(verified)
                 .build();
 

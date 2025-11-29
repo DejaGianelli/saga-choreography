@@ -26,6 +26,9 @@ public class CreditCardAuthorization {
     @Column(name = "customer_guid")
     private UUID customerGuid;
 
+    @Column(name = "customer_document")
+    private String document;
+
     @Column(name = "customer_verified")
     private Boolean customerVerified = false;
 
@@ -39,8 +42,9 @@ public class CreditCardAuthorization {
         this.ticketCreated = false;
     }
 
-    public CreditCardAuthorization(UUID id, UUID customerGuid) {
+    public CreditCardAuthorization(UUID id, UUID customerGuid, String document) {
         this(id);
+        this.document = document;
         this.customerGuid = customerGuid;
     }
 

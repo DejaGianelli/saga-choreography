@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 public class TicketCreatedEvent {
     private UUID consumerGuid;
+    private String consumerDocument;
     private UUID orderGuid;
     private UUID ticketGuid;
 }

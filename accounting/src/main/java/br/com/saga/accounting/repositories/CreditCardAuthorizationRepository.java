@@ -19,9 +19,10 @@ public interface CreditCardAuthorizationRepository extends JpaRepository<CreditC
             INSERT INTO credit_card_authorizations (id, ticket_created, status)
             VALUES (:id, true, 'PENDING')
             ON CONFLICT (id)
-            DO UPDATE SET ticket_created = true
+            DO UPDATE SET ticket_created = true, customer_document = :document
             """, nativeQuery = true)
-    void upsertTicketCreated(@Param("id") UUID id);
+    void upsertTicketCreated(@Param("id") UUID id,
+                             @Param("document") String document);
 
     @Modifying
     @Transactional
@@ -29,8 +30,9 @@ public interface CreditCardAuthorizationRepository extends JpaRepository<CreditC
             INSERT INTO credit_card_authorizations (id, customer_verified, status)
             VALUES (:id, true, 'PENDING')
             ON CONFLICT (id)
-            DO UPDATE SET customer_verified = true
+            DO UPDATE SET customer_verified = true, customer_document = :document
             """, nativeQuery = true)
-    void upsertConsumerVerified(@Param("id") UUID id);
+    void upsertConsumerVerified(@Param("id") UUID id,
+                                @Param("document") String document);
 
 }

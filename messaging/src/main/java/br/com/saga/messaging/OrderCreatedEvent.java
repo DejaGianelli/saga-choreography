@@ -11,5 +11,6 @@ import java.util.UUID;
 @Setter
 public class OrderCreatedEvent {
     private UUID consumerGuid;
+    private String consumerDocument;
     private UUID orderGuid;
 }
