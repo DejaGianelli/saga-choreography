@@ -1,7 +1,9 @@
 package br.com.saga.kitchen.listeners;
 
+import br.com.saga.kitchen.services.CreditCardAuthorizationFailedEventProcessService;
 import br.com.saga.kitchen.services.CreditCardAuthorizedEventProcessService;
 import br.com.saga.kitchen.services.OrderCreatedEventProcessService;
+import br.com.saga.messaging.CreditCardAuthorizationFailedEvent;
 import br.com.saga.messaging.CreditCardAuthorizedEvent;
 import br.com.saga.messaging.DomainEvent;
 import br.com.saga.messaging.OrderCreatedEvent;
@@ -15,22 +17,31 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import static br.com.saga.messaging.EventType.CREDIT_CARD_AUTHORIZED_VALUE;
-import static br.com.saga.messaging.EventType.ORDER_CREATED_VALUE;
+import static br.com.saga.messaging.EventType.*;
 import static br.com.saga.messaging.KafkaHeader.EVENT_TYPE_VALUE;
 
 @Component
 @Slf4j
 public class OrderEventsListener {
 
-    @Autowired
-    OrderCreatedEventProcessService orderCreatedEventProcessService;
+    private final OrderCreatedEventProcessService orderCreatedEventProcessService;
+
+    private final CreditCardAuthorizedEventProcessService creditCardAuthorizedEventProcessService;
+
+    private final CreditCardAuthorizationFailedEventProcessService creditCardAuthorizationFailedEventProcessService;
+
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    CreditCardAuthorizedEventProcessService creditCardAuthorizedEventProcessService;
-
-    @Autowired
-    ObjectMapper objectMapper;
+    public OrderEventsListener(OrderCreatedEventProcessService orderCreatedEventProcessService,
+                               CreditCardAuthorizedEventProcessService creditCardAuthorizedEventProcessService,
+                               CreditCardAuthorizationFailedEventProcessService creditCardAuthorizationFailedEventProcessService,
+                               ObjectMapper objectMapper) {
+        this.orderCreatedEventProcessService = orderCreatedEventProcessService;
+        this.creditCardAuthorizedEventProcessService = creditCardAuthorizedEventProcessService;
+        this.creditCardAuthorizationFailedEventProcessService = creditCardAuthorizationFailedEventProcessService;
+        this.objectMapper = objectMapper;
+    }
 
     @KafkaListener(
             topics = "order-events",
@@ -41,6 +52,7 @@ public class OrderEventsListener {
                        String eventType) throws JsonProcessingException {
 
         switch (eventType) {
+
             case ORDER_CREATED_VALUE: {
                 TypeReference<DomainEvent<OrderCreatedEvent>> valueTypeRef
                         = new TypeReference<>() {
@@ -58,6 +70,16 @@ public class OrderEventsListener {
                 DomainEvent<CreditCardAuthorizedEvent> event = objectMapper
                         .readValue(message, valueTypeRef);
                 creditCardAuthorizedEventProcessService.process(event);
+            }
+            break;
+
+            case CREDIT_CARD_AUTHORIZATION_FAILED_VALUE: {
+                TypeReference<DomainEvent<CreditCardAuthorizationFailedEvent>> valueTypeRef
+                        = new TypeReference<>() {
+                };
+                DomainEvent<CreditCardAuthorizationFailedEvent> event = objectMapper
+                        .readValue(message, valueTypeRef);
+                creditCardAuthorizationFailedEventProcessService.process(event);
             }
             break;
 

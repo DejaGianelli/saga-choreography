@@ -49,6 +49,7 @@ public class Order {
     @Getter
     public enum Status {
         APPROVAL_PENDING,
-        APPROVED;
+        APPROVED,
+        REJECTED;
     }
 }

@@ -38,10 +38,8 @@ public class Ticket {
 
     @Getter
     public enum Status {
-        APPROVED,
         CREATE_PENDING,
         AWAITING_ACCEPTANCE,
-        CREATE_REJECTED,
         REJECTED;
     }
 }

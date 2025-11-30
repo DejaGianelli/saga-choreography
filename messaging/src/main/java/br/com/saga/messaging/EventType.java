@@ -8,6 +8,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public enum EventType {
 
     CREDIT_CARD_AUTHORIZED("CreditCardAuthorized"),
+    CREDIT_CARD_AUTHORIZATION_FAILED("CreditCardAuthorizationFailed"),
     TICKET_CREATED("TicketCreated"),
     CONSUMER_VERIFIED("ConsumerVerified"),
     ORDER_CREATED("OrderCreated"),
@@ -18,6 +19,7 @@ public enum EventType {
     public static final String CONSUMER_VERIFIED_VALUE = "ConsumerVerified";
     public static final String ORDER_CREATED_VALUE = "OrderCreated";
     public static final String ORDER_APPROVED_VALUE = "OrderApproved";
+    public static final String CREDIT_CARD_AUTHORIZATION_FAILED_VALUE = "CreditCardAuthorizationFailed";
 
     private final String key;
 
